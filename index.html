@@ -1,1 +1,361 @@
-Hello World
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/@heroicons/react@2.0.16/dist/react/outline.js"></script>
+  <script>
+    // List of background images
+    const images = [
+        "/dist/img/colin-watts-EpzoqfX57PQ-unsplash.jpg",
+        "/dist/img/marek-piwnicki-HxPkohFqDGY-unsplash.jpg",
+        "/dist/img/scott-lord-P3MsdSRWprA-unsplash.jpg",
+        "/dist/img/yigit-arisoy-HxDwRVv6Lfc-unsplash.jpg",
+        "/dist/img/steve-busch-PR-gMCljSEM-unsplash.jpg",
+        "/dist/img/ahmet-yuksek-8lLssF1ERe4-unsplash.jpg",
+        "/dist/img/benaja-germann-NPGj5EVCy3o-unsplash.jpg",
+        "/dist/img/steve-gribble-r69BCa__bRQ-unsplash.jpg",
+        "/dist/img/arnaud-girault-IjEtFjxXweE-unsplash.jpg",
+        "/dist/img/daniel-j-schwarz-CLuSXJia4Hc-unsplash.jpg"
+    ];
+
+    // Select a random image
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+
+    // Apply the random image to the parallax section and trigger fade-in
+    window.onload = function () {
+        console.log("Page fully loaded");
+        console.log("Selected image:", randomImage);
+
+        const parallaxSection = document.querySelector(".parallax");
+        if (parallaxSection) {
+            parallaxSection.style.backgroundImage = `url('${randomImage}')`;
+        } else {
+            console.error("Parallax section not found");
+        }
+
+        document.body.classList.add('fade-in'); // Add fade-in class to body
+        typeWriter(); // Start the typewriter effect
+        initScrollReveal(); // Initialize scroll reveal effect
+    };
+
+     // Scroll reveal effect
+     function initScrollReveal() {
+        const sections = document.querySelectorAll('.reveal-section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        sections.forEach(section => {
+            section.classList.add('hidden-section');
+            observer.observe(section);
+        });
+    }
+
+    // Typewriter effect
+    function typeWriter() {
+        const text = "Welcome to Alexander's Portfolio";
+        const header = document.querySelector(".parallax h1");
+        let i = 0;
+        const speed = 100; // The speed/duration of the effect in milliseconds
+
+        function type() {
+            if (i < text.length) {
+                header.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+
+        type();
+    }
+
+    // Function to handle project details
+    function openProjectDetails(projectId) {
+        // Redirect to link
+        switch (projectId) {
+          case 'goalforge':
+              window.location.href = "https://github.com/AlexanderM13/goalforgeweb";
+              break;
+          case 'overwrapped':
+              window.location.href = "https://github.com/AlexanderM13/Overwrapped";
+              break;
+          default:
+              console.log("Page not found");
+        }
+    }
+  </script>
+  <title>Portfolio</title>
+    <style>
+        /* Fade-in Effect */
+        body {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+          }
+
+        body.fade-in {
+          opacity: 1;
+        }
+        /* Parallax Effect */
+        .parallax {
+          background-attachment: fixed;
+          background-size: cover;
+          background-position: center;
+          height: 80vh; /* Adjusted height */
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+
+        /* Scroll reveal effect styles */
+        .hidden-section {
+          opacity: 0;
+          transform: translateY(50px);
+          transition: all 1s ease-out;
+        }
+
+        .revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Typewriter Effect */
+        .parallax h1 {
+            overflow: hidden; /* Ensures the content is not revealed until the typewriter effect */
+            border-right: .15em solid white; /* The typwriter cursor */
+            white-space: nowrap; /* Keeps the content on a single line */
+            margin: 0; /* Remove default margin */
+            letter-spacing: .15em; /* Adjust as needed */
+            animation: blink-caret .75s step-end infinite;
+        }
+
+        /* The typewriter cursor effect */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: white; }
+        }
+
+        /* Resume Button - Combined styles */
+        .button-glow {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #303333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .button-glow:hover {
+            animation: glow 2s infinite;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            background-color: rgb(14, 31, 53);
+        }
+
+        /* Increase border size for sections */
+        .profile-section, .experience-section, .projects-section, .contact-section {
+            border-width: 4px; /* Increase border size */
+        }
+    </style>
+    <style>
+      /* Custom animations */
+      @keyframes glow {
+        0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+        50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+        100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+      }
+  
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
+
+      /* Remove any margin from the body */
+      body {
+          margin: 0;
+          padding: 0;
+      }
+  
+      /* Animated underline effect */
+      .animated-underline {
+        position: relative;
+      }
+  
+      .animated-underline::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #3B82F6;
+        transition: all 0.3s;
+      }
+  
+      .animated-underline:hover::after {
+        width: 100%;
+      }
+  
+      /* Update the card-3d class */
+      .card-3d {
+          transition: all 0.5s ease;
+          transform-style: preserve-3d;
+          perspective: 2000px;
+          backface-visibility: hidden;
+      }
+
+      .card-3d:hover {
+          transform: rotateY(15deg) rotateX(5deg) scale(1.05);
+          box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+      }
+
+      /* Add this to the parent container of card-3d */
+      .projects-grid {
+          perspective: 1000px;
+      }
+  
+      /* Project image hover effect */
+      .project-image {
+        transition: all 0.5s ease-out;
+        transform-style: preserve-3d;
+      }
+  
+      .project-image:hover {
+        transform: scale(1.05) translateZ(20px);
+      }
+  
+      /* Profile section hover effect */
+      .profile-hover {
+        transition: all 0.5s;
+      }
+  
+      .profile-hover:hover {
+        animation: float 3s ease-in-out infinite;
+      }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- Resume Button -->
+  <button class="button-glow">Resume</button>
+
+  <!-- Parallax Header -->
+  <div class="parallax min-h-screen">
+    <h1 class="text-4xl font-bold"></h1>
+  </div>
+
+  <!-- Profile Section -->
+  <div class="profile-section profile-hover flex items-center w-full max-w-7xl mx-auto border border-gray-700 p-6 rounded-lg mt-6 bg-gray-800 reveal-section">
+    <!-- Your existing profile content -->
+    <img src="/dist/img/img_avatar.png" alt="Avatar" class="w-32 h-32 rounded-full shadow-lg border-4 border-gray-300">
+    <div class="flex flex-grow items-center ml-6">
+      <div class="mr-6">
+        <h2 class="text-4xl font-bold">Alexander Mendez</h2>
+        <p class="text-sm text-gray-400">Computer Science Major</p>
+        <p class="text-sm text-gray-400">California State University, Los Angeles</p>
+      </div>
+      <div class="border-l border-gray-600 pl-6">
+        <h3 class="text-xl font-semibold">Background</h3>
+        <p class="text-gray-400">Bachelors in Science Computer Science Graduate from California State University, Los Angeles. </p>
+        <p> 
+          Motivated and dependable recent college graduate seeking an entry-level position in Software Engineering.
+          Eager to gain hands-on expierence in a environment where I can learn new skills but also bring in my own skills and abilities.
+          Known for being a strong-team player, quick learner, and effective communicator. I am also interested in game development/web development.
+          I am willing to learn new things and am constantly in pursuit of knowledge.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Experience Section -->
+  <section class="experience-section max-w-7xl mx-auto mt-12 p-6 bg-gray-800 border border-gray-700 rounded-lg reveal-section">
+    <!-- Your existing experience content -->
+    <h2 class="text-3xl font-semibold mb-4">Experience</h2>
+    <p class="text-gray-400">
+      <dl class="text-gray-400">
+        <dt>IT Student Itern @ Santa Barbara Public Defenders:        8/2024 - 05/2025</dt>
+        <dt><u>Role - Developer</u></dt>
+        <dd>- Worked in a team of 10 members to help mirate a previous developed desktop application to a cloud-based application using AWS Lambda, Box.com, and Python</dd>
+        <dd>- Developed an email notification service using AWS SES to notify of any file processing errors that might occur through parsing</dd>
+        <dd>- Helped with development in setting up Lambda layers that were used to import libraries necessary to carry out lambda functions</dd>
+      </dl>
+    </p>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="projects-section max-w-7xl mx-auto mt-12 p-6 bg-gray-800 border border-gray-700 rounded-lg reveal-section">
+    <!-- Your existing projects content -->
+    <h2 class="text-3xl font-semibold mb-8">Personal Projects</h2>
+    <div class="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Project 1 -->
+      <div class="card-3d bg-gray-700 rounded-lg overflow-hidden shadow-lg">
+        <img src="/dist/img/unnamed.png" alt="Project 1" class="project-image w-full h-48 object-cover cursor-pointer" onclick="openProjectDetails('goalforge')">
+        <div class="p-4">
+          <h3 class="text-xl font-semibold">GoalForge - Web Application</h3>
+          <div class="flex justify-between items-center mt-2">
+            <p class="text-gray-400">Task Management Website</p>
+            <button class="animated-underline text-blue-400 hover:text-blue-300" onclick="openProjectDetails('goalforge')">Learn More</button>
+          </div>
+        </div>
+      </div>
+      <!-- Project 2 -->
+      <div class="card-3d bg-gray-700 rounded-lg overflow-hidden shadow-lg">
+        <img src="/dist/img/overwrapped.png" alt="Project 2" class="project-image w-full h-48 object-cover cursor-pointer" onclick="openProjectDetails('overwrapped')">
+        <div class="p-4">
+          <h3 class="text-xl font-semibold">Overwrapped</h3>
+          <div class="flex justify-between items-center mt-2">
+            <p class="text-gray-400">3D Web-Page Unity Game</p>
+            <button class="animated-underline text-blue-400 hover:text-blue-300" onclick="openProjectDetails('overwrapped')">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Information Section -->
+  <section class="contact-section max-w-7xl mx-auto mt-12 p-6 bg-gray-800 border border-gray-700 rounded-lg">
+    <h2 class="text-3xl font-semibold mb-4">Contact Information</h2>
+    <p class="text-gray-400 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        Email: alexlosangeles7@gmail.com
+    </p>
+    <p class="text-gray-400 flex items-center mt-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.699-2.782.603-3.369-1.341-3.369-1.341-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.295 2.747-1.026 2.747-1.026.547 1.376.203 2.394.1 2.646.64.698 1.025 1.591 1.025 2.682 0 3.842-2.337 4.687-4.565 4.928.36.31.678.919.678 1.852 0 1.338-.012 2.419-.012 2.747 0 .268.18.578.688.48A10.019 10.019 0 0022 12c0-5.523-4.477-10-10-10z" />
+        </svg>
+        GitHub:&nbsp;
+        <a href="https://github.com/AlexanderM13" class="text-blue-400 hover:text-blue-300">
+          Alexander Mendez
+        </a>
+    </p>
+    <p class="text-gray-400 flex items-center mt-2">
+      &nbsp;<i class="fa-brands fa-linkedin"></i>&nbsp;&nbsp;LinkedIn:&nbsp;
+      <a href="https://www.linkedin.com/in/alexander-mendez-b36726249/" class="text-blue-400 hover:text-blue-300">
+        Alexander Mendez
+      </a>
+    </p>
+</section>
+
+</body>
+</html>
